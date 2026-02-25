@@ -1,5 +1,5 @@
 # PSMC-FAC
-False-negative rate Automated Correction in low-coverage genomes:A statistical framework for correcting loss of heterozygosity in low-coverage genomic demographic inference
+False-negative rate Automated Correction in low-coverage genomes: A statistical framework for correcting loss of heterozygosity in low-coverage genomic demographic inference
 
 
 This repository compiles the scripts needed to perform PSMC analysis coupled with FNR correction.
@@ -12,8 +12,7 @@ Contents:
 - [Downsampling](#downsampling)
 - [File conversion](#file-conversion)
 - [PSMC run](#psmc-run)
-		- [Variable r](#variable-r)
-     	- [Fixed r](#fixed-r)
+
 - [Distance calculation](#distance-calculation)
 
 - [Regression analysis](#regression-analysis) 
@@ -31,6 +30,7 @@ samtools depth -a "$input_file" | awk -v bam="$input_file" '{sub(/.*\//, "", bam
 ## Heterozygosity
 Making use of ANGSD and samtools the bash script does the following:
 
+ FOR WOLF FOR NOW 38chr... (lo cambiaré)
 - Extracts every chromosome in the bam file
 ```bash
 for i in {1..38}; do
@@ -104,17 +104,6 @@ $progpsmc/utils/fq2psmcfa -q20 $fq_psmcafold/$filename.fq.gz > $fq_psmcafold/$fi
 # PSMC run
 Pairwise Sequentially Markovian Coalescent (PSMC; Li & Durbin,2011) is called on the .psmcfa files obtained previously to output the .psmc file which contains the demographic information of the sample. To include the effect of FNR correction during PSMC's course two options are available.
  
-### Variable r
-Altering -r (initial theta/rho ratio) introducing FNR in initial_theta/rho=r=5 as r<sub>FNR</sub>=5/(1-FNR).
-PSMC was performed with the next set of values:
-```bash
-FNR_values=(0​ 0.1​ 0.2​ 0.3​ 0.4 0.5​ 0.6​ 0.7​ 0.8​ 0.9​)
-#With their corresponding r_values
-r_values=(5 5.556 6.25 7.143 8.333 10 12.5 16.667 25 50)
-```
-PSMC was also run with 4 different configurations of -p (atomic intervals). The setting "1*6+58*1" was discarded after obtaining results that coincide with Hilgers et al. 2025 research. In which the recommendation to divide the first atomic interval is provided. 
-
-### Fixed r
 PSMC can run on the selected file/s with -r fixed to 5. PSMC run example with four different -p settings. 
 ```
 $psmc -N20 -t10 -r5 -p "1*6+58*1" -o $plotf/1_6/$filename.psmc "$file"
@@ -122,7 +111,6 @@ $psmc -N20 -t10 -r5 -p "2*3+58*1" -o $plotf/2_3/$filename.psmc "$file"
 $psmc -N20 -t10 -r5 -p "3*2+58*1" -o $plotf/3_2/$filename.psmc "$file"
 $psmc -N20 -t10 -r5 -p "3+3+58*1" -o $plotf/3__3/$filename.psmc "$file"
 ```
-FNR is introduced in the [plotting](#plotting) step, explained in its section. 
 > [!NOTE]
 > You can erase the PSMC command with -p "1 * 6 + 58 * 1" as it was only kept to prove Nadachowska's work.
 > The results from the different -p used is quite similar, to reduce the processing time just run with one command.
@@ -133,23 +121,10 @@ FNR is introduced in the [plotting](#plotting) step, explained in its section.
 Repeating the 2 plotting steps with all the downsamples generates a table linking downsample coverage and FNR value required for correction. 
 
 <ins>A polynomial regression of degree 2</ins> can be fitted to this data, showing a high coefficient of determination (this method is still under examination and refinement).
-> [!NOTE]
-> Note that to be able to plot, the original and downsamples .bam files must be converted to .psmcfa and lastly to .psmc after running PSMC.
+
+
 # Plot samples
 Once the quadratic equation from the regression analysis was accomplished, the samples below 18X were assigned a FNR value dependant of their coverage. This threshold was applied following Nadachowska et al. (2016) recommendation for samples with enough coverage (>18X) for PSMC analysis.
-# Tips And Considerations
-- You can use the next bash command to print the progress in real time:
-```
-tail -f $checkfolder/anylog.txt
-```
-- Scripts can be called on many files through a loop too, feeding the $file variable inside.
-Example:
-Setting file="$1" (first argument after calling the specific script)
-
-```
-while IFS= read -r line; do bash script.sh $line; done < "samples_paths.list"
-###This command will iterate through every line of the text file provided and will use each path (each line) in the file in the script.
-```
 
 ## References
 Conda was used to create controlled environments to run specific tools. Conda documentation. (2024). https://docs.conda.io/

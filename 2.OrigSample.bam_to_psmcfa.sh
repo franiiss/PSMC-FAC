@@ -13,7 +13,7 @@ mkdir -p "$vcf_fold" "$fq_psmca_fold" "$log_fold"
 # Programs used
 bcftools="path/to/bcftools"
 htslib="/path/to/htslib"
-progpsmc="/path/to/psmc"
+psmc="/path/to/psmc"
 vcfutils="/path/to/vcfutils.pl"
 
 # List with all the paths to the original.bam files 
@@ -40,7 +40,7 @@ while IFS= read -r file; do
   
   echo "[$(date)]-----START-----PSMCFA----- $ind">> $log_fold/psmcfa_log.txt
   $bcftools/bcftools view "$vcf_fold/$ind.vcf.gz" | $vcfutils vcf2fq -d 5 -D $D_param | gzip > $fq_psmca_fold/$ind.fq.gz
-  $progpsmc/utils/fq2psmcfa -q20 $fq_psmca_fold/$ind.fq.gz > $fq_psmca_fold/$ind.psmcfa
+  $psmc/utils/fq2psmcfa -q20 $fq_psmca_fold/$ind.fq.gz > $fq_psmca_fold/$ind.psmcfa
   echo "[$(date)]-----DONE-----PSMCFA----- $ind">> $log_fold/psmcfa_log.txt
 
 # Delete previous files if not needed for other analysis

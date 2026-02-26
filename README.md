@@ -16,8 +16,8 @@ Contents:
 - [Distance calculation](#distance-calculation)
 
 - [Regression analysis](#regression-analysis) 
-- [Plot samples](#plot-samples)
-- [Tips And Considerations](#tips-and-considerations)
+
+
 
 
 # Initial Calculations

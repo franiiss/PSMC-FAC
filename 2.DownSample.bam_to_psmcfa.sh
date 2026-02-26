@@ -9,7 +9,7 @@ ref="path/to/ref/genome.fa"
 vcf_fold="/path/to/output/vcf"
 fq_psmca_fold="/path/to/output/fq_psmca"
 log_fold="path/to/logs"
-mkdir -p $vcf_fold $fq_psmca_fold $log_fold
+mkdir -p "$vcf_fold" "$fq_psmca_fold" "$log_fold"
 # Programs used
 bcftools="path/to/bcftools"
 htslib="/path/to/htslib"

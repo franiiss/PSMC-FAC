@@ -1,0 +1,12 @@
+  python3 PSMC-FAC.py \
+  --root example_run_PSMC_FAC_wolf \
+  --base_files gr_wolf.spain.SAMN04851099.psmc \
+  --outdir example_run_PSMC_FAC_output_wolf \
+  --mu 4.5e-9 \
+  --g 4.4 \
+  --FNR_min 0.0 \
+  --FNR_max 0.99 \
+  --svalue 100 \
+  --tmin 1e4 \
+  --tmax 1.5e6 \
+  --write_psmc_tsv

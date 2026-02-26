@@ -1,0 +1,7 @@
+Sample: gr_wolf.spain.SAMN04851099
+  Approach: Hausdorff
+  Equation: y=3.38e-03 x^2 + -1.31e-01 x + 1.26e+00
+
+  Approach: Frechet
+  Equation: y=2.96e-03 x^2 + -1.24e-01 x + 1.25e+00
+

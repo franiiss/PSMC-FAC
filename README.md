@@ -59,9 +59,12 @@ Next, convert the .vcf files to .fq format using bcftools view on the .vcf.gz fi
 During this step, the next vcf2fq parameters need to be determined:
 
 > -d sets the lower coverage threshold, set to 5 <br/>
-> -D sets the higher coverage threshold, set to 2xAvgCvg (following recommendation from the official PSMC github) 
+> -D sets the higher coverage threshold, set to 2xAvgCvg (following recommendation from the official PSMC github)
+
 <br/>
 The calculation of -D varies between the original bam files and the downsamples. The coverage of original bam files was stored in a .csv with 0.depth_calc.sh and it's loaded in a dictionary, while for the downsamples a simple regression expression extracts the coverage from the filename.
+
+
 ```bash
 # For Downsamples
   cvg=$(echo $ind | grep -oE '[0-9]+$')

@@ -29,47 +29,6 @@ A .csv file is also created to store the filename and coverage to create a dicti
 ```bash
 samtools depth -a "$input_file" | awk -v bam="$input_file" -v depths="$out_folder/depths_file" -v csv="$out_folder/coverages.csv" '{sum+=$3; sumsq+=$3*$3} END {print bam  "      Average : " sum/NR "      Stdev = " sqrt((sumsq-sum^2/NR)/NR) >> depths; print bam","sum/NR >> csv}'
 ```
-## Heterozygosity
-Making use of ANGSD and samtools the bash script does the following:
-
- FOR WOLF FOR NOW 38chr... (lo cambiaré)
-- Extracts every chromosome in the bam file
-```bash
-for i in {1..38}; do
-        chr=$(printf "%02d" "$i")
-        samtools view -b $file chr$chr > $new_folder/$ind.chr$chr.bam
-	    samtools index $new_folder/$ind.chr$chr.bam
-done
-```
-
-- Creates a .sfs file per .bam file extracted. 
-	- First, ANGSD is called to process the bam file.
- 	- Then, realSFS function from ANGSD processes the .saf.idx file outputed by ANGSD to generate the unfolded .sfs file.
-```bash
-for i in {1..38}; do
-        chr=$(printf "%02d" "$i")
-        $angsd -i "$new_folder/$ind.chr$chr.bam" -doSaf 1 -out $new_folder/angsd/chr$chr -anc $ref/canfam31.chr$chr.fa -GL 2 -P 4 -minQ 20 -minMapQ 20 
-        $real $new_folder/angsd/chr$chr.saf.idx -P 4  > $new_folder/angsd/SFS/chr$chr.sfs
-done
-```
-Lastly, the unfolded .sfs file contains the iformation of  Homozygous (0/0), Heterozygous (0/1) and Homozygous (1/1) sites in this order.
-The Heterozygosity equals dividing the Heterozygous by the total sites. 
-```bash
-col1=0
-col2=0
-col3=0
-for i in {1..38}; do
-    chr=$(printf "%02d" "$i")
-    sfs_file="$new_folder/angsd/SFS/chr$chr.sfs" 
-    # Read and add values from each SFS file
-    while read -r c1 c2 c3; do
-        col1=$(echo "$col1 + $c1" | bc)
-        col2=$(echo "$col2 + $c2" | bc)
-        col3=$(echo "$col3 + $c3" | bc)
-    done < "$sfs_file"
-done
-heterozygosity1=$(awk '{hets=$2; totsites=$1+$2+$3; heterozygosity=hets/totsites; print heterozygosity}' "$new_folder/angsd/SFS/combined.$ind.sfs")
-```
 # Downsampling
 The first step of the FNR calculation is downsampling a high-coverage sample to a determine set of coverage values.<br/>
 > samtools view -h (include header) -s [int value (0,1)]

@@ -23,9 +23,11 @@ Contents:
 # Initial Calculations
 To asses the charachteristics of the samples used, check the coverage (read depth) and heterozygosity. 
 ## Depth
-samtools depth -a (all positions) piped to awk was used to output the average coverage and the standard deviation.
+samtools depth -a (all positions) piped to awk was used to output the average coverage and the standard deviation in a file.
+A .csv file is also created to store the filename and coverage to create a dictionary during the downsampling step
+
 ```bash
-samtools depth -a "$input_file" | awk -v bam="$input_file" '{sub(/.*\//, "", bam); sum+=$3; sumsq+=$3*$3} END {print bam  "      Average : " ,sum/NR "      Stdev = ", sqrt((sumsq-sum^2/NR)/NR)}' >> $folder/depthsfile
+samtools depth -a "$input_file" | awk -v bam="$input_file" -v depths="$out_folder/depths_file" -v csv="$out_folder/coverages.csv" '{sum+=$3; sumsq+=$3*$3} END {print bam  "      Average : " sum/NR "      Stdev = " sqrt((sumsq-sum^2/NR)/NR) >> depths; print bam","sum/NR >> csv}'
 ```
 ## Heterozygosity
 Making use of ANGSD and samtools the bash script does the following:
@@ -74,9 +76,18 @@ The first step of the FNR calculation is downsampling a high-coverage sample to 
 
 s determines the fraction of reads kept in the output file
 ```bash
-samtools view -h -s 0.6756 -b $file > $downfold/$ind.15.bam
+samtools view -h -s 0.6756 -b $file > $downfold/$ind.bam
 ```
-In this example, by retaining 67.56% reads of the original bam file (22.202X) the output bam file will present ~15X coverage.
+In this example, by retaining 67.56% reads of the original bam file (22.202X) the output bam file will present ~15X coverage.<br/>
+
+The script interates through a set of desired coverages and calculates the -s ratio for each coverage dividing the target coverage by the original coverage.
+```bash
+for target_cvg in 15 14 13 12 11 10 9 8 7 6 5 4; do
+	ratio=$(echo "scale=6; $target_cvg / $orig_cvg" | bc)
+	output_file="$out_fold/$ind.$target_cvg.bam"
+	samtools view -h -s "$ratio" -b "$file" > "$output_file"
+done
+``
 
 # File conversion
 To prepare the .psmcfa files needed for PSMC, variant calling on the bam files is performed with bcftools mpileup and call functions. Indexing the .vcf.gz output file at the end.

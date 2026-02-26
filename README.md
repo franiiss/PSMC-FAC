@@ -51,24 +51,29 @@ done
 # File conversion
 To prepare the .psmcfa files needed for PSMC, variant calling on the bam files is performed with bcftools mpileup and call functions. Indexing the .vcf.gz output file at the end.
 ```bash
-$bcftools/bcftools mpileup -C50 -f $ref -Ou $file | $bcftools/bcftools call -c -Oz -o "$vcfold/$filename.vcf.gz"
-$htslib/tabix "$vcfold/$filename.vcf.gz"
+  $bcftools/bcftools mpileup -C50 -f $ref -Ou $file | $bcftools/bcftools call -c -Oz -o "$vcf_fold/$ind.vcf.gz"
+  $htslib/tabix "$vcf_fold/$ind.vcf.gz"
 ```
-Next, convert the .vcf files to .fq format using bcftools view of the .vcf.gz file piped to vcf2fq -d -D piped to gzip to obtain the .fq.gz file.
+Next, convert the .vcf files to .fq format using bcftools view on the .vcf.gz file piped to vcf2fq piped to gzip to obtain the .fq.gz file.
 
 During this step, the next vcf2fq parameters need to be determined:
 
 > -d sets the lower coverage threshold, set to 5.
-> D sets the higher coverage threshold, set to 2xAvgCvg (following recommendation from the official PSMC github)
+> D sets the higher coverage threshold, set to 2xAvgCvg (following recommendation from the official PSMC github)<br/>
+The calculation of -D varies between the original bam files and the downsamples. The coverage of original bam files was stored in a .csv with 0.depth_calc.sh and it's loaded in a dictionary, while for the downsamples a simple regression expression extracts the coverage from the filename.
 ```bash
-# coverage of every file is stored in an associative array
-cvg=$(dict_cvg[$filename])
-D_param=$(echo "$cvg * 2" | bc -l)
-$bcftools/bcftools view "$vcfold/$filename.vcf.gz" | $bcftools/bin/vcfutils.pl vcf2fq -d 5 -D $D_param | gzip > $fq_psmcafold/$filename.fq.gz
+# For Downsamples
+  cvg=$(echo $ind | grep -oE '[0-9]+$')
+# For Original files
+  cvg=${dict_cvg[$ind]}
+
+### Both share the next steps
+  D_param=$(( cvg * 2 ))
+  $bcftools/bcftools view "$vcf_fold/$ind.vcf.gz" | $vcfutils vcf2fq -d 5 -D $D_param | gzip > $fq_psmca_fold/$ind.fq.gz
 ```
 Lastly call fq2psmcfa (from /psmc/utils/ folder) to convert the .fq.gz file to .psmcfa.
 ```bash
-$progpsmc/utils/fq2psmcfa -q20 $fq_psmcafold/$filename.fq.gz > $fq_psmcafold/$filename.psmcfa
+  $progpsmc/utils/fq2psmcfa -q20 $fq_psmca_fold/$ind.fq.gz > $fq_psmca_fold/$ind.psmcfa
 ```
 
 # PSMC run

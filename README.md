@@ -87,7 +87,7 @@ for target_cvg in 15 14 13 12 11 10 9 8 7 6 5 4; do
 	output_file="$out_fold/$ind.$target_cvg.bam"
 	samtools view -h -s "$ratio" -b "$file" > "$output_file"
 done
-``
+```
 
 # File conversion
 To prepare the .psmcfa files needed for PSMC, variant calling on the bam files is performed with bcftools mpileup and call functions. Indexing the .vcf.gz output file at the end.

@@ -21,15 +21,15 @@ conda activate samtools
 ind=$(basename $file .bam)
 orig_cvg=${dict_cvg["$ind"]}
   
-echo -e "[$(date)]\tDownsampling\t$ind" >>$log_fold/downsample_log.txt
+echo -e "[$(date)]\t DOWNSAMPLING \t$ind" >>$log_fold/downsample_log.txt
 # Calculate the downsample factor for the final wanted coverage (15,14,13,12,...,2)
 for target_cvg in 15 14 13 12 11 10 9 8 7 6 5 4; do
 	# The downsampling factor= -s flag, sets the % (-s 0,5 -> 50%) of reads kept in the output
-	echo "" >>$log_fold/downsample_log.txt
+	echo "[$(date)]\t Started Downsampling  $ind  to Coverage= $target_cvg" >>$log_fold/downsample_log.txt
 	ratio=$(echo "scale=6; $target_cvg / $orig_cvg" | bc)
 	output_file="$out_fold/$ind.$target_cvg.bam"
 	samtools view -h -s "$ratio" -b "$file" > "$output_file"
-	echo -e "[$(date)]\t$ind     Downsample to Coverage= $target_cvg \t COMPLETED" >>$log_fold/downsample_log.txt
+	echo -e "[$(date)]\t$ind Downsample to Coverage= $target_cvg \t COMPLETED" >>$log_fold/downsample_log.txt
 done
 echo -e "[$(date)]\tFINISHED DOWNSAMPLING OF\t$ind" >>$log_fold/downsample_log.txt
 

@@ -29,19 +29,19 @@ while IFS= read -r file; do
   # Cut the filename 
   ind=$(basename "$file" .bam)
   # Converting .bam into .vcf.gz and indexing
-  echo  "[$(date)]-----START-----VCF-----  $ind">> $log_fold/psmcfa_log.txt
+  echo  "[$(date)]    Starting VCF  $ind">> $log_fold/psmcfa_log.txt
   $bcftools/bcftools mpileup -C50 -f $ref -Ou $file | $bcftools/bcftools call -c -Oz -o "$vcf_fold/$ind.vcf.gz"
   $htslib/tabix "$vcf_fold/$ind.vcf.gz"
-  echo "[$(date)]-----DONE-----VCF----- $ind">> $log_fold/psmcfa_log.txt
+  echo "[$(date)]    VCF of  $ind  done">> $log_fold/psmcfa_log.txt
   # Converting .vcf.gz --> .fq.gz  --> .psmcfa 
   ### Parameters -d is set to 5 and -D to x2 coverage mean
   cvg=${dict_cvg[$ind]}
   D_param=$(echo "$cvg * 2" | bc -l)
   
-  echo "[$(date)]-----START-----PSMCFA----- $ind">> $log_fold/psmcfa_log.txt
+  echo "[$(date)]    Starting Conversion to PSMCFA of  $ind">> $log_fold/psmcfa_log.txt
   $bcftools/bcftools view "$vcf_fold/$ind.vcf.gz" | $vcfutils vcf2fq -d 5 -D $D_param | gzip > $fq_psmca_fold/$ind.fq.gz
   $psmc/utils/fq2psmcfa -q20 $fq_psmca_fold/$ind.fq.gz > $fq_psmca_fold/$ind.psmcfa
-  echo "[$(date)]-----DONE-----PSMCFA----- $ind">> $log_fold/psmcfa_log.txt
+  echo "[$(date)]    PSMCFA OF  $ind  DONE">> $log_fold/psmcfa_log.txt
 
 # Delete previous files if not needed for other analysis
 ### Only leaves the .psmcfa file 

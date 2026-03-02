@@ -32,7 +32,7 @@ while IFS= read -r file; do
   echo  "[$(date)]    Starting VCF  $ind">> $log_fold/psmcfa_log.txt
   $bcftools/bcftools mpileup -C50 -f $ref -Ou $file | $bcftools/bcftools call -c -Oz -o "$vcf_fold/$ind.vcf.gz"
   $htslib/tabix "$vcf_fold/$ind.vcf.gz"
-  echo "[$(date)]    VCF of  $ind  done">> $log_fold/psmcfa_log.txt
+  echo "[$(date)]    VCF of  $ind  DONE">> $log_fold/psmcfa_log.txt
   # Converting .vcf.gz --> .fq.gz  --> .psmcfa 
   ### Parameters -d is set to 5 and -D to x2 coverage mean
   cvg=${dict_cvg[$ind]}

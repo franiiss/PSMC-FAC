@@ -8,7 +8,6 @@ Contents:
 
 - [Initial Calculations](#initial-calculations)
     - [Depth](#depth)
-    - [Heterozygosity](#heterozygosity)
 - [Downsampling](#downsampling)
 - [File conversion](#file-conversion)
 - [PSMC run](#psmc-run)

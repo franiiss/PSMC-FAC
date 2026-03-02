@@ -132,10 +132,10 @@ All trajectories are projected onto a shared logarithmically spaced temporal gri
 
 Each curve is represented as:
 
-```
-P   = {(t_i, Ne_i^ref)}_{i=1}^n
-Q_f = {(t_i, Ne_i^(f))}_{i=1}^n
-```
+
+$$P   = {(t_i, Ne_i^ref)}_{i=1}^n$$
+$$Q_f = {(t_i, Ne_i^(f))}_{i=1}^n$$
+
 
 Where:
 

@@ -81,15 +81,8 @@ Lastly call fq2psmcfa (from /psmc/utils/ folder) to convert the .fq.gz file to .
 ```
 
 # PSMC run
-Pairwise Sequentially Markovian Coalescent (PSMC; Li & Durbin,2011) is called on the .psmcfa files obtained previously to output the .psmc file which contains the demographic information of the sample. To include the effect of FNR correction during PSMC's course two options are available.
- 
-PSMC can run on the selected file/s with -r fixed to 5. PSMC run example with four different -p settings. 
-```
-$psmc -N20 -t10 -r5 -p "1*6+58*1" -o $plotf/1_6/$filename.psmc "$file"
-$psmc -N20 -t10 -r5 -p "2*3+58*1" -o $plotf/2_3/$filename.psmc "$file"
-$psmc -N20 -t10 -r5 -p "3*2+58*1" -o $plotf/3_2/$filename.psmc "$file"
-$psmc -N20 -t10 -r5 -p "3+3+58*1" -o $plotf/3__3/$filename.psmc "$file"
-```
+Pairwise Sequentially Markovian Coalescent (PSMC; Li & Durbin,2011) is called on the .psmcfa files obtained previously to output the .psmc files.
+
 > [!NOTE]
 > You can erase the PSMC command with -p "1 * 6 + 58 * 1" as it was only kept to prove Nadachowska's work.
 > The results from the different -p used is quite similar, to reduce the processing time just run with one command.

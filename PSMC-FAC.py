@@ -14,7 +14,7 @@ import similaritymeasures
 import matplotlib.pyplot as plt
 
 
-NUM_PSMC_RE = re.compile(r"\.(\d+)\.psmc$")  # coverage nomenclature
+NUM_PSMC_RE = re.compile(r"\.(\d+)\.psmc$")  # our coverage nomenclature
 
 
 # =====================================================
@@ -716,7 +716,7 @@ def run_pipeline(args):
 
 
 def main():
-    p = argparse.ArgumentParser(description="Unified pipeline (1->5) with distance-scale and optional baseline definition from table or input.")
+    p = argparse.ArgumentParser(description="PSMC-FAC is a software that will select the best FNR factor correction for your PSMC inferences based on geometric distances (Hausdorff and Fréchet) between reference (high coverage) and low coverage genomes. \nCheck Iglesias-Santos et. al. 2026 for more information.")
     p.add_argument("--root", required=True, help="Root directory containing .psmc files")
     p.add_argument("--base_files", nargs="+", default=None, help="Exact baseline filenames (optional if --coverage_table defines baseline)")
     p.add_argument("--outdir", required=True, help="Output directory")
@@ -742,7 +742,7 @@ def main():
     p.add_argument("--no_trajectory_plots", action="store_true", help="Do not generate trajectory plots (baseline vs corrected/uncorrected).")
 
     p.add_argument("--write_psmc_tsv", action="store_true",
-                   help="Write step-1 per-PSMC TSVs (FNR trajectories sampled on the custom vector).")
+                   help="Write per-PSMC TSVs (FNR trajectories sampled on the custom vector).")
 
     args = p.parse_args()
     run_pipeline(args)

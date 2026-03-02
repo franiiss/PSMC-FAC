@@ -14,14 +14,14 @@ Contents:
 
 
 
-# Depth
+## Depth
 samtools depth -a (all positions) piped to awk was used to output the average coverage and the standard deviation in a file.
 A .csv file is also created to store the filename and coverage to create a dictionary during the downsampling step
 
 ```bash
 samtools depth -a "$input_file" | awk -v bam="$input_file" -v depths="$out_folder/depths_file" -v csv="$out_folder/coverages.csv" '{sum+=$3; sumsq+=$3*$3} END {print bam  "      Average : " sum/NR "      Stdev = " sqrt((sumsq-sum^2/NR)/NR) >> depths; print bam","sum/NR >> csv}'
 ```
-# Downsampling
+## Downsampling
 The first step of the FNR calculation is downsampling a high-coverage sample to a determine set of coverage values.<br/>
 > samtools view -h (include header) -s [int value (0,1)]
 
@@ -40,7 +40,7 @@ for target_cvg in 15 14 13 12 11 10 9 8 7 6 5 4; do
 done
 ```
 
-# File conversion
+## File conversion
 To prepare the .psmcfa files needed for PSMC, variant calling on the bam files is performed with bcftools mpileup and call functions. Indexing the .vcf.gz output file at the end.
 ```bash
   $bcftools/bcftools mpileup -C50 -f $ref -Ou $file | $bcftools/bcftools call -c -Oz -o "$vcf_fold/$ind.vcf.gz"
@@ -72,7 +72,7 @@ Lastly call fq2psmcfa (from /psmc/utils/ folder) to convert the .fq.gz file to .
   $progpsmc/utils/fq2psmcfa -q20 $fq_psmca_fold/$ind.fq.gz > $fq_psmca_fold/$ind.psmcfa
 ```
 
-# PSMC run
+## PSMC run
 Pairwise Sequentially Markovian Coalescent (PSMC; Li & Durbin,2011) is called on the .psmcfa files obtained previously to output the .psmc files.<br/>
 >-p: time_vector (species-specific)
 ```
@@ -82,11 +82,6 @@ Pairwise Sequentially Markovian Coalescent (PSMC; Li & Durbin,2011) is called on
 > [!NOTE]
 > You can erase the PSMC command with -p "1 * 6 + 58 * 1" as it was only kept to prove Nadachowska's work.
 
-
-## Regression analysis
-
-
-# Plot samples
 
 
 

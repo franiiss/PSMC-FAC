@@ -5,8 +5,7 @@ This repository compiles the scripts needed to perform PSMC analysis coupled wit
 
 Contents:
 
-- [Initial Calculations](#initial-calculations)
-    - [Depth](#depth)
+- [Depth](#depth)
 - [Downsampling](#downsampling)
 - [File conversion](#file-conversion)
 - [PSMC run](#psmc-run)
@@ -14,9 +13,8 @@ Contents:
 
 
 
-# Initial Calculations
-To asses the charachteristics of the samples used, check the coverage (read depth) and heterozygosity. 
-## Depth
+
+# Depth
 samtools depth -a (all positions) piped to awk was used to output the average coverage and the standard deviation in a file.
 A .csv file is also created to store the filename and coverage to create a dictionary during the downsampling step
 

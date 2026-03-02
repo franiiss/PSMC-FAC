@@ -73,7 +73,11 @@ Lastly call fq2psmcfa (from /psmc/utils/ folder) to convert the .fq.gz file to .
 ```
 
 # PSMC run
-Pairwise Sequentially Markovian Coalescent (PSMC; Li & Durbin,2011) is called on the .psmcfa files obtained previously to output the .psmc files.
+Pairwise Sequentially Markovian Coalescent (PSMC; Li & Durbin,2011) is called on the .psmcfa files obtained previously to output the .psmc files.<br/>
+>-p: time_vector (species-specific)
+```
+  $psmc -N20 -t10 -r5 -p "2*3+58*1" -o $psmc_fold/$ind.psmc "$file"
+```
 
 > [!NOTE]
 > You can erase the PSMC command with -p "1 * 6 + 58 * 1" as it was only kept to prove Nadachowska's work.

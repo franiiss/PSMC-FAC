@@ -85,18 +85,13 @@ Pairwise Sequentially Markovian Coalescent (PSMC; Li & Durbin,2011) is called on
 
 > [!NOTE]
 > You can erase the PSMC command with -p "1 * 6 + 58 * 1" as it was only kept to prove Nadachowska's work.
-> The results from the different -p used is quite similar, to reduce the processing time just run with one command.
-> Also, take into account -p setting depends on multiple elements. You can make use of proven atomic intervals in trusted bibliography for the species studied.
 
 
 ## Regression analysis
-Repeating the 2 plotting steps with all the downsamples generates a table linking downsample coverage and FNR value required for correction. 
-
-<ins>A polynomial regression of degree 2</ins> can be fitted to this data, showing a high coefficient of determination (this method is still under examination and refinement).
 
 
 # Plot samples
-Once the quadratic equation from the regression analysis was accomplished, the samples below 18X were assigned a FNR value dependant of their coverage. This threshold was applied following Nadachowska et al. (2016) recommendation for samples with enough coverage (>18X) for PSMC analysis.
+
 
 ## References
 Conda was used to create controlled environments to run specific tools. Conda documentation. (2024). https://docs.conda.io/

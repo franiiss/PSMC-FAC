@@ -11,10 +11,6 @@ Contents:
 - [File conversion](#file-conversion)
 - [PSMC run](#psmc-run)
 
-- [Distance calculation](#distance-calculation)
-
-- [Regression analysis](#regression-analysis) 
-
 
 
 

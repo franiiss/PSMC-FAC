@@ -74,9 +74,9 @@ Lastly call fq2psmcfa (from /psmc/utils/ folder) to convert the .fq.gz file to .
 
 ## PSMC run
 Pairwise Sequentially Markovian Coalescent (PSMC; Li & Durbin,2011) is called on the .psmcfa files obtained previously to output the .psmc files.<br/>
->-p: time_vector (species-specific)
->-N: maximum number of iterations
->-t: maximum 2N0 coalescent time
+>-p: time_vector (species-specific)<br/>
+>-N: maximum number of iterations<br/>
+>-t: maximum 2N0 coalescent time<br/>
 >-r: initial theta/rho ratio
 ```
   $psmc -N20 -t10 -r5 -p "2*3+58*1" -o $psmc_fold/$ind.psmc "$file"

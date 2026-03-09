@@ -1,17 +1,15 @@
-# Preprocessing 
-
 
 This repository compiles the scripts needed to perform PSMC analysis coupled with FNR correction.
 
 Contents:
+- [Preprocessing](#preprocessing)
+	- [Depth](#depth)
+	- [Downsampling](#downsampling)
+	- [File conversion](#file-conversion)
+	- [PSMC run](#psmc-run)
+- [PSMC-FAC](#psmc-fac)
 
-- [Depth](#depth)
-- [Downsampling](#downsampling)
-- [File conversion](#file-conversion)
-- [PSMC run](#psmc-run)
-
-
-
+# Preprocessing 
 
 
 ## Depth

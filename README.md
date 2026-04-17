@@ -389,8 +389,7 @@ pip install numpy pandas scipy matplotlib
 # Citation
 
 If you use PSMC-FAC in your work, please cite:
-
-(Manuscript reference here)
+Iglesias-Santos, F.; Nieto, A.; Casillas, S.; Barbadilla, A.; Sarabia, C. PSMC-FAC: Automated Optimization of False-Negative Rate Corrections for Low-Coverage PSMC-Based Demographic Inference. Biology 2026, 15, 631. https://doi.org/10.3390/biology15080631 
 
 ## References
 Conda was used to create controlled environments to run specific tools. Conda documentation. (2024). https://docs.conda.io/

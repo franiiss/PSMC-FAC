@@ -11,7 +11,7 @@ Contents:
 	- [Mathematical formulation](#mathematical-formulation)
  	- [Workflow Overview](#workflow-overview)
    	- [Directory Structure Assumption](#Directory-structure-assumption)
- 	- [Example Usage](#example-usage)
+ 	- [Example Usage](#example-usage-(wolf-example-from-repository))
     - [Recursive Multi-Sample Usage](#recursive-multi-sample-usage)
     - [Main CLI Arguments](#main-CLI-arguments)
 

@@ -13,6 +13,7 @@ Contents:
    	- [Directory Structure Assumption](#Directory-structure-assumption)
  	- [Example Usage](#example-usage-wolf-example-from-repository)
     - [Recursive Multi-Sample Usage](#recursive-multi-sample-usage)
+    - [Using a Coverage Table](#using-a-coverage-table)
     - [Main CLI Arguments](#main-CLI-arguments)
 
 	-[Practical Considerations](#practical-considerations)

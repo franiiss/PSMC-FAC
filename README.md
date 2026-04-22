@@ -8,7 +8,18 @@ Contents:
 	- [File conversion](#file-conversion)
 	- [PSMC run](#psmc-run)
 - [PSMC-FAC](#psmc-fac)
+	- [Mathematical formulation](#mathematical-formulation)
+ 	- [Workflow Overview](#workflow-overview)
+   	- [Directory Structure Assumption](#Directory-structure-assumption)
+ 	- [Example Usage](#example-usage (Wolf Example from Repository))
+    - [Recursive Multi-Sample Usage](#recursive-multi-sample-usage)
+    - [Main CLI Arguments](#main-CLI-arguments)
 
+	-[Practical Considerations](#practical-considerations)
+  	-[Interpretation Notes](#interpretation-notes)
+  	-[Requirements](#requirements)
+
+  
 # Preprocessing 
 
 
